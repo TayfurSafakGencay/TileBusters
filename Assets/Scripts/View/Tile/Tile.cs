@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
 using Enum;
 using Manager;
+using Tools.DebugX;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -31,16 +31,12 @@ namespace View.Tile
 
     protected virtual void Awake()
     {
-      SetTileFeatures();
-
       _image = GetComponent<Image>();
 
       _canvas = GetComponent<Canvas>();
       _canvas.overrideSorting = true;
       _canvas.sortingOrder = _layer;
       
-      UnLock();
-
       _destroyImage.DOFade(0, 0);
 
       if (_tileKey == TileKey.Empty)
@@ -51,13 +47,6 @@ namespace View.Tile
 
     private void Start()
     {
-      _image.sprite = GameManager.Instance.TileManager.GetSpecificTileSprite(_tileKey);
-
-      GameManager.Instance.TileManager.TileRemoved += TileRemoved;
-    }
-
-    public void SetTileFeatures()
-    {
       TileFeatureVo = new TileFeatureVo
       {
         Tile = this,
@@ -66,14 +55,30 @@ namespace View.Tile
         Layer = _layer,
         Lock = false,
       };
+      SetTileFeatures(TileFeatureVo);
+      
+      UnLock();
+      
+      _image.sprite = GameManager.Instance.TileManager.GetSpecificTileSprite(_tileKey);
+
+      GameManager.Instance.TileManager.TileRemoved += TileRemoved;
     }
     
+    public void SetTileFeatures(TileFeatureVo tileFeatureVo)
+    {
+      TileFeatureVo = tileFeatureVo;
+      
+      GameManager.Instance.TileManager.AddTile(tileFeatureVo);
+    }
+
     public virtual void OnPointerClick(PointerEventData eventData)
     {
       if (!_isClickable) return;
       if (TileFeatureVo.Lock) return;
 
       _isClickable = false;
+      
+      Debugger.Debug(new Color(0.5f, 0.3f, 0.8f), DebugKey.Click, TileFeatureVo.Id.ToString());
 
       Destroy(gameObject.GetComponent<BoxCollider2D>());
       Destroy(gameObject.GetComponent<Rigidbody2D>());
@@ -81,10 +86,9 @@ namespace View.Tile
       GameManager.Instance.BottomCollector.FillSlot(TileFeatureVo);
     }
 
-    public void MoveToTheTarget(Vector2 position)
+    public void MoveToTheTarget(Vector2 position, Ease ease = Ease.InBack, float time = Time.MoveTime)
     {
-      transform.DOMove(position, Time.MoveTime).SetEase(Ease.InBack);
-      // transform.position = position;
+      transform.DOMove(position, time).SetEase(ease);
     }
 
     private const string _tileTag = "Tile";
