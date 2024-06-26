@@ -42,7 +42,7 @@ namespace Manager
 
     public void AddTile(TileFeatureVo tileFeatureVo)
     {
-      _allTiles.Add(tileFeatureVo.Id, tileFeatureVo);
+      _allTiles[tileFeatureVo.Id] = tileFeatureVo;
     }
 
     public Action<int> TileRemoved;
@@ -52,6 +52,11 @@ namespace Manager
       _allTiles.Remove(id);
       
       TileRemoved.Invoke(id);
+    }
+
+    public TileFeatureVo GetTile(int Id)
+    {
+      return _allTiles[Id];
     }
   }
 }

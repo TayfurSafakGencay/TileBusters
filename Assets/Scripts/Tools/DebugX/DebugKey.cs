@@ -5,6 +5,7 @@
     AddItemToEmptySlot,
     AddItemToFirstEmptySlot,
     MoveToRight,
-    CheckThreeMatching
+    CheckThreeMatching,
+    Click
   }
 }
