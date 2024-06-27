@@ -43,7 +43,6 @@ namespace View.Tile
       {
         _health--;
         _iceImage.gameObject.SetActive(false);
-        base.TileRemoved(Id);
         return;
       }
 

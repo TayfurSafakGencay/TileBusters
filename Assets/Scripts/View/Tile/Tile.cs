@@ -30,8 +30,6 @@ namespace View.Tile
     protected virtual void Awake()
     {
       _image = GetComponent<Image>();
-      GetComponent<Canvas>().sortingOrder = _layer;
-
       _destroyImage.DOFade(0, 0);
 
       if (_tileKey == TileKey.Empty)
@@ -42,6 +40,8 @@ namespace View.Tile
 
     protected virtual void Start()
     {
+      GetComponent<Canvas>().sortingOrder = _layer;
+
       TileFeatureVo = new TileFeatureVo
       {
         Tile = this,
@@ -59,9 +59,17 @@ namespace View.Tile
       GameManager.Instance.TileManager.TileRemoved += TileRemoved;
     }
     
-    public void SetTileFeatures(TileFeatureVo tileFeatureVo)
+    public TileFeatureVo SetTileFeatures(TileFeatureVo tileFeatureVo)
     {
       TileFeatureVo = GameManager.Instance.TileManager.AddTile(tileFeatureVo);
+
+      return TileFeatureVo;
+    }
+
+    public void SetFeatures(int layer, TileKey key)
+    {
+      _layer = layer;
+      _tileKey = key;
     }
 
     public virtual void OnPointerClick(PointerEventData eventData)

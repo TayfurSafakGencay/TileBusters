@@ -301,7 +301,6 @@ MonoBehaviour:
   _layer: 0
   _tile: {fileID: 8735272008267072758, guid: a8a8ac486c4e50541a5310a7e902f46e, type: 3}
   _tiles: 010000000200000003000000
-  _tileArea: {fileID: 0}
   _image: {fileID: 5320327050665893418}
   _countText: {fileID: 8456600325686066435}
   _targetPlace: {fileID: 7044812241431474223}
@@ -350,7 +349,7 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0

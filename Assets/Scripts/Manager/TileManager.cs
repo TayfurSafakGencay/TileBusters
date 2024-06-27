@@ -57,7 +57,6 @@ namespace Manager
         }
       }
 
-
       _allTiles[tileFeatureVo.Id] = tileFeatureVo;
       return _allTiles[tileFeatureVo.Id];
     }

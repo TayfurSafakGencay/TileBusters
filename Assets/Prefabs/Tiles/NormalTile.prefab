@@ -95,7 +95,7 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
@@ -116,8 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468ea323ff3247eeb5258b82f9a7db03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _layer: 0
   _tileKey: 2
+  _layer: 0
   _destroyImage: {fileID: 2035537632354659564}
 --- !u!114 &8607800437449003339
 MonoBehaviour:

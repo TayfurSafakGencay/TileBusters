@@ -72,7 +72,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7f522e5c71cc833449698c145069233f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f00e6b5227a418e4caf4277a5a268391, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -96,7 +96,7 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
@@ -206,8 +206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1c4dc177804a07b50efe7bb2ff3195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _layer: 0
   _tileKey: 2
+  _layer: 0
   _destroyImage: {fileID: 6536447599011528886}
   _iceSpriteList:
   - {fileID: 21300000, guid: 4205cebc9093bb741a617788998c1476, type: 3}
