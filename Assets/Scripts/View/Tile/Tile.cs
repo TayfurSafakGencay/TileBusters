@@ -77,7 +77,7 @@ namespace View.Tile
       OnClick();
     }
 
-    protected void OnClick()
+    protected virtual void OnClick()
     {
       if (!_isClickable) return;
       if (TileFeatureVo.Lock) return;
