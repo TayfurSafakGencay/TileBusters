@@ -23,9 +23,6 @@ namespace View.Tile
     [SerializeField]
     private List<TileKey> _tiles;
 
-    [SerializeField]
-    private Transform _tileArea;
-
     private Canvas _canvas;
 
     private bool _lock;
@@ -54,34 +51,29 @@ namespace View.Tile
       _canvas = GetComponent<Canvas>();
       _canvas.overrideSorting = true;
       _canvas.sortingOrder = _layer;
+
+      _targetPlace.GetComponent<Canvas>().sortingOrder = _layer - 1;
       
       _whiteDestroyImage.DOFade(0, 0);
     }
     
-    private void Start()
+    private async void Start()
     {
       GameManager.Instance.TileManager.TileRemoved += TileRemoved;
       
+      _countText.text = _tiles.Count.ToString();
+      
       for (int i = 0; i < _tiles.Count; i++)
       {
-        GameObject tile = Instantiate(_tile, transform.position, quaternion.identity, _tileArea);
+        GameObject tile = Instantiate(_tile, transform.position, quaternion.identity, transform.parent);
         Tile tileScript = tile.GetComponent<Tile>();
+        tile.GetComponent<BoxCollider2D>().enabled = false;
+        
+        tileScript.SetFeatures(_layer, _tiles[i]);
 
-        TileFeatureVo tileFeatureVo = new()
-        {
-          Tile = tileScript,
-          Id = tile.transform.GetSiblingIndex(),
-          Layer = _layer,
-          Lock = false,
-          Key = _tiles[i],
-        };
-        
-        tileScript.SetTileFeatures(tileFeatureVo);
-        
-        _creatorTiles.Add(tileFeatureVo.Id);
+        await Task.Delay(1);
+        _creatorTiles.Add(tileScript.TileFeatureVo.Id);
       }
-      
-      _countText.text = _creatorTiles.Count.ToString();
       
       InitialLockCheck();
     }
@@ -182,13 +174,21 @@ namespace View.Tile
     private const float _lastScale = 1.2f;
     private void DestroyAnimation()
     {
-      // await Task.Delay((int)(Time.MoveTime * 1000));
-
       _whiteDestroyImage.DOFade(1, Time.DestroyTime);
       transform.DOScale(new Vector2(_lastScale, _lastScale), Time.DestroyTime).OnComplete(() =>
       {
         Destroy(gameObject);
       });
+    }
+
+    private void OnDestroy()
+    {
+      GameManager.Instance.TileManager.TileRemoved -= TileRemoved;
+    }
+
+    private void OnValidate()
+    {
+      gameObject.GetComponent<Canvas>().sortingOrder = _layer;
     }
   }
 }
