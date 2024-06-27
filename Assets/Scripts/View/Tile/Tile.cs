@@ -18,25 +18,20 @@ namespace View.Tile
     public TileFeatureVo TileFeatureVo { get; private set; }
 
     [SerializeField]
-    private int _layer;
-
-    [SerializeField]
     private TileKey _tileKey;
 
     protected Image _image;
 
-    private Canvas _canvas;
-
     private bool _isClickable = true;
+
+    [SerializeField]
+    private int _layer;
 
     protected virtual void Awake()
     {
       _image = GetComponent<Image>();
+      GetComponent<Canvas>().sortingOrder = _layer;
 
-      _canvas = GetComponent<Canvas>();
-      _canvas.overrideSorting = true;
-      _canvas.sortingOrder = _layer;
-      
       _destroyImage.DOFade(0, 0);
 
       if (_tileKey == TileKey.Empty)
@@ -45,12 +40,12 @@ namespace View.Tile
       }
     }
 
-    private void Start()
+    protected virtual void Start()
     {
       TileFeatureVo = new TileFeatureVo
       {
         Tile = this,
-        Id = transform.GetSiblingIndex(),
+        Id = 0,
         Key = _tileKey,
         Layer = _layer,
         Lock = false,
@@ -66,12 +61,15 @@ namespace View.Tile
     
     public void SetTileFeatures(TileFeatureVo tileFeatureVo)
     {
-      TileFeatureVo = tileFeatureVo;
-      
-      GameManager.Instance.TileManager.AddTile(tileFeatureVo);
+      TileFeatureVo = GameManager.Instance.TileManager.AddTile(tileFeatureVo);
     }
 
     public virtual void OnPointerClick(PointerEventData eventData)
+    {
+      OnClick();
+    }
+
+    protected void OnClick()
     {
       if (!_isClickable) return;
       if (TileFeatureVo.Lock) return;
@@ -168,5 +166,10 @@ namespace View.Tile
     protected readonly List<int> _adjacentTiles = new();
 
     protected readonly List<int> _upperLayerTiles = new();
+
+    private void OnValidate()
+    {
+      gameObject.GetComponent<Canvas>().sortingOrder = _layer;
+    }
   }
 }

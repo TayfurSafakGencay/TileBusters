@@ -15,6 +15,8 @@ namespace Manager
 
     private Dictionary<TileKey, Sprite> _tilesSprites = new();
 
+    private static int _lastId;
+
     private void Awake()
     {
       Instance = this;
@@ -40,9 +42,24 @@ namespace Manager
 
     private Dictionary<int, TileFeatureVo> _allTiles = new();
 
-    public void AddTile(TileFeatureVo tileFeatureVo)
+    public TileFeatureVo AddTile(TileFeatureVo tileFeatureVo)
     {
+      while (true)
+      {
+        if (_allTiles.ContainsKey(_lastId))
+        {
+          _lastId++;
+        }
+        else
+        {
+          tileFeatureVo.Id = _lastId;
+          break;
+        }
+      }
+
+
       _allTiles[tileFeatureVo.Id] = tileFeatureVo;
+      return _allTiles[tileFeatureVo.Id];
     }
 
     public Action<int> TileRemoved;
