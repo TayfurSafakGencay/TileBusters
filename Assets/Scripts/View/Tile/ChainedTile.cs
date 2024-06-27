@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -20,11 +21,13 @@ namespace View.Tile
       
       _image.color = Color.gray;
       _lockImage.gameObject.SetActive(true);
+    }
 
-      if (_adjacentTiles.Count == 0 )
-      {
-        OpenChain();
-      }
+    protected override void Start()
+    {
+      base.Start();
+      
+      WaitToOpenChain();
     }
 
     public override void OnPointerClick(PointerEventData eventData)
@@ -36,15 +39,9 @@ namespace View.Tile
 
     protected override void TileRemoved(int Id)
     {
-      if (TileFeatureVo.Lock)
-      {
-        base.TileRemoved(Id);
-        return;
-      }
-      
       if (_adjacentTiles.Contains(Id))
       {
-        if (!_isGoldChain)
+        if (!_isGoldChain && !TileFeatureVo.Lock)
         {
           OpenChain();
         }
@@ -52,7 +49,7 @@ namespace View.Tile
       
       base.TileRemoved(Id);
 
-      if (_adjacentTiles.Count == 0)
+      if (_adjacentTiles.Count == 0 && !TileFeatureVo.Lock)
       {
         OpenChain();
       }
@@ -65,6 +62,16 @@ namespace View.Tile
       if (!TileFeatureVo.Lock && !_chanied)
       {
         base.UnLock();
+      }
+    }
+
+    private async void WaitToOpenChain()
+    {
+      await Task.Delay(100);
+      
+      if (_adjacentTiles.Count == 0 )
+      {
+        OpenChain();
       }
     }
 
