@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace View.Tile
 {
@@ -13,7 +11,7 @@ namespace View.Tile
     private List<Sprite> _iceSpriteList;
 
     [SerializeField]
-    private Image _iceImage;
+    private SpriteRenderer _iceImage;
 
     protected override void Awake()
     {
@@ -22,11 +20,20 @@ namespace View.Tile
       _iceImage.sprite = _iceSpriteList[_health];
     }
 
-    public override void OnPointerClick(PointerEventData eventData)
+    protected override void Start()
+    {
+      base.Start();
+
+      transform.localPosition -= new Vector3(0, 0, -0.5f);
+      
+      Glow.SetActive(false);
+    }
+
+    protected override void OnMouseDown()
     {
       if (_health >= 0) return;
       
-      base.OnPointerClick(eventData);
+      base.OnMouseDown();
     }
 
     protected override void TileRemoved(int Id)
@@ -43,11 +50,20 @@ namespace View.Tile
       {
         _health--;
         _iceImage.gameObject.SetActive(false);
+        Glow.SetActive(true);
         return;
       }
 
       _health--;
       _iceImage.sprite = _iceSpriteList[_health];
+      Glow.SetActive(false);
+    }
+
+    protected override void OnValidate()
+    {
+      base.OnValidate();
+
+      _iceImage.sortingOrder = GetInspectorLayer();
     }
   }
 }

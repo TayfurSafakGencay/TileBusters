@@ -22,15 +22,18 @@ namespace View
       {
         _slots.Add(transform.GetChild(i).transform, new TileFeatureVo());
       }
+    }
 
+    private void Start()
+    {
       _tileManager = GameManager.Instance.TileManager;
     }
 
-    public void FillSlot(TileFeatureVo tileFeatureVo)
+    public async void FillSlot(TileFeatureVo tileFeatureVo)
     {
       _tileManager.RemoveTile(tileFeatureVo.Id);
       
-      CheckSameKey(tileFeatureVo);
+      await CheckSameKey(tileFeatureVo);
     }
 
     private async Task CheckSameKey(TileFeatureVo tileFeatureVo)
@@ -90,7 +93,7 @@ namespace View
       }
     }
 
-    private async Task MoveToRight(int index, TileFeatureVo tileFeatureVo)
+    private Task MoveToRight(int index, TileFeatureVo tileFeatureVo)
     {
       Debugger.Debug(new Color(0.8f, 0.8f, 0.3f), DebugKey.MoveToRight, index.ToString());
 
@@ -112,6 +115,8 @@ namespace View
       AttachTheVo(targetKey, tileFeatureVo);
       
       Debugger.Debug(new Color(0.8f, 0.8f, 0.3f), DebugKey.MoveToRight, "End");
+
+      return Task.Delay(0);
     }
 
     private async void CheckThreeMatching(int index)

@@ -42,7 +42,7 @@ namespace Manager
 
     private Dictionary<int, TileFeatureVo> _allTiles = new();
 
-    public TileFeatureVo AddTile(TileFeatureVo tileFeatureVo)
+    public int AddTile(TileFeatureVo tileFeatureVo)
     {
       while (true)
       {
@@ -58,7 +58,7 @@ namespace Manager
       }
 
       _allTiles[tileFeatureVo.Id] = tileFeatureVo;
-      return _allTiles[tileFeatureVo.Id];
+      return tileFeatureVo.Id;
     }
 
     public Action<int> TileRemoved;

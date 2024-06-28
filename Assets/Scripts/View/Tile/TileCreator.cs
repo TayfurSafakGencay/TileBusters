@@ -6,7 +6,6 @@ using Manager;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UI;
 using Vo;
 using Time = Enum.Time;
 
@@ -23,8 +22,6 @@ namespace View.Tile
     [SerializeField]
     private List<TileKey> _tiles;
 
-    private Canvas _canvas;
-
     private bool _lock;
 
     private readonly List<int> _upperLayerTiles = new();
@@ -35,7 +32,7 @@ namespace View.Tile
 
     [Space]
     [SerializeField]
-    private Image _image;
+    private SpriteRenderer _spriteRenderer;
 
     [SerializeField]
     private TextMeshProUGUI _countText;
@@ -44,22 +41,19 @@ namespace View.Tile
     private Transform _targetPlace;
 
     [SerializeField]
-    private Image _whiteDestroyImage;
+    private SpriteRenderer _whiteDestroySprite;
 
     private void Awake()
     {
-      _canvas = GetComponent<Canvas>();
-      _canvas.overrideSorting = true;
-      _canvas.sortingOrder = _layer;
-
-      _targetPlace.GetComponent<Canvas>().sortingOrder = _layer - 1;
-      
-      _whiteDestroyImage.DOFade(0, 0);
+      _whiteDestroySprite.DOFade(0, 0);
     }
     
     private async void Start()
     {
       GameManager.Instance.TileManager.TileRemoved += TileRemoved;
+      
+      Vector3 position = transform.position;
+      transform.position = new Vector3(position.x, position.y, 25 - _layer);
       
       _countText.text = _tiles.Count.ToString();
       
@@ -67,7 +61,6 @@ namespace View.Tile
       {
         GameObject tile = Instantiate(_tile, transform.position, quaternion.identity, transform.parent);
         Tile tileScript = tile.GetComponent<Tile>();
-        tile.GetComponent<BoxCollider2D>().enabled = false;
         
         tileScript.SetFeatures(_layer, _tiles[i]);
 
@@ -86,14 +79,14 @@ namespace View.Tile
       {
         Tile otherTile = other.gameObject.GetComponent<Tile>();
 
-        if (!_creatorTiles.Contains(otherTile.TileFeatureVo.Id))
+        if (otherTile.TileFeatureVo == null) return;
+
+        if (_creatorTiles.Contains(otherTile.TileFeatureVo.Id)) return;
+        if (otherTile.TileFeatureVo.Layer > _layer)
         {
-          if (otherTile.TileFeatureVo.Layer > _layer)
-          {
-            _upperLayerTiles.Add(otherTile.TileFeatureVo.Id);
+          _upperLayerTiles.Add(otherTile.TileFeatureVo.Id);
           
-            Lock();
-          }
+          Lock();
         }
       }
     }
@@ -125,7 +118,7 @@ namespace View.Tile
       _lock = true;
       
       _countText.color = Color.gray;
-      _image.color = Color.gray;
+      _spriteRenderer.color = Color.gray;
     }
 
     private void UnLock()
@@ -133,7 +126,7 @@ namespace View.Tile
       _lock = false;
       
       _countText.color = Color.white;
-      _image.color = Color.white;
+      _spriteRenderer.color = Color.white;
     }
 
     private async void InitialLockCheck()
@@ -174,7 +167,7 @@ namespace View.Tile
     private const float _lastScale = 1.2f;
     private void DestroyAnimation()
     {
-      _whiteDestroyImage.DOFade(1, Time.DestroyTime);
+      _whiteDestroySprite.DOFade(1, Time.DestroyTime);
       transform.DOScale(new Vector2(_lastScale, _lastScale), Time.DestroyTime).OnComplete(() =>
       {
         Destroy(gameObject);
@@ -188,7 +181,7 @@ namespace View.Tile
 
     private void OnValidate()
     {
-      gameObject.GetComponent<Canvas>().sortingOrder = _layer;
+      _spriteRenderer.sortingOrder = _layer;
     }
   }
 }

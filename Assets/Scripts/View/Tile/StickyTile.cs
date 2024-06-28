@@ -1,7 +1,6 @@
-﻿using DG.Tweening;
+﻿using System.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace View.Tile
 {
@@ -12,25 +11,37 @@ namespace View.Tile
     private StickyTile _siblingTile;
 
     [SerializeField]
-    private Image _stick;
+    private SpriteRenderer _stick;
 
-    public override void OnPointerClick(PointerEventData eventData)
+    protected override void OnMouseDown()
     {
-      if (_siblingTile.TileFeatureVo.Lock) return;
-      if (TileFeatureVo.Lock) return;
+      if (_siblingTile.TileFeatureVo.Lock || TileFeatureVo.Lock) return;
 
       _stick.DOFade(0, 0.2f);
       
-      base.OnPointerClick(eventData);
+      base.OnMouseDown();
 
-      _siblingTile.OnClick();
+      _siblingTile.BeforeSiblingActivation();
     }
 
-    protected override void OnClick()
+    private async void BeforeSiblingActivation()
     {
       _stick.DOFade(0, 0.2f);
 
-      base.OnClick();
+      await Task.Delay(500);
+      
+      OnClick();
+    }
+
+    protected override void OnValidate()
+    {
+      base.OnValidate();
+
+      _siblingTile.GetComponent<SpriteRenderer>().sortingOrder = GetInspectorLayer();
+      _siblingTile.SetInspectorLayer(GetInspectorLayer());
+      _siblingTile._stick.sortingOrder = GetInspectorLayer();
+      
+      _stick.sortingOrder = GetInspectorLayer();
     }
   }
 }

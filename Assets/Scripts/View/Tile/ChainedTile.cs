@@ -1,26 +1,32 @@
 ﻿using System.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using Time = Enum.Time;
 
 namespace View.Tile
 {
   public class ChainedTile : Tile
   {
-    private bool _chanied = true;
+    private bool _chained = true;
 
+    [Space(30)]
     [SerializeField]
     private bool _isGoldChain;
 
     [SerializeField]
-    private Image _lockImage;
+    private SpriteRenderer _lockSpriteRenderer;
+
+    [SerializeField]
+    private Sprite _unlockImage;
 
     protected override void Awake()
     {
       base.Awake();
       
-      _image.color = Color.gray;
-      _lockImage.gameObject.SetActive(true);
+      _spriteRenderer.color = Color.gray;
+      _lockSpriteRenderer.gameObject.SetActive(true);
+      
+      Glow.SetActive(false);
     }
 
     protected override void Start()
@@ -30,11 +36,11 @@ namespace View.Tile
       WaitToOpenChain();
     }
 
-    public override void OnPointerClick(PointerEventData eventData)
+    protected override void OnMouseDown()
     {
-      if (_chanied) return;
+      if (_chained) return;
       
-      base.OnPointerClick(eventData);
+      base.OnMouseDown();
     }
 
     protected override void TileRemoved(int Id)
@@ -55,11 +61,11 @@ namespace View.Tile
       }
     }
 
-    protected override void UnLock()
+    protected override void UnLock(bool initial = false)
     {
       TileFeatureVo.Lock = false;
 
-      if (!TileFeatureVo.Lock && !_chanied)
+      if (!TileFeatureVo.Lock && !_chained)
       {
         base.UnLock();
       }
@@ -77,9 +83,20 @@ namespace View.Tile
 
     private void OpenChain()
     {
-      _lockImage.gameObject.SetActive(false);
-      _image.color = Color.white;
-      _chanied = false;
+      _lockSpriteRenderer.sprite = _unlockImage;
+      _spriteRenderer.color = Color.white;
+      _chained = false;
+
+      _lockSpriteRenderer.DOFade(0, Time.MoveTime);
+      
+      UnLock();
+    }
+
+    protected override void OnValidate()
+    {
+      base.OnValidate();
+
+      _lockSpriteRenderer.sortingOrder = GetInspectorLayer();
     }
   }
 }
