@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tile
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -42,6 +43,27 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: New Layer 1
+  - name: BottomCollector
     uniqueID: 3423509065
+    locked: 0
+  - name: Tile
+    uniqueID: 2522143953
+    locked: 0
+  - name: CollectedTile
+    uniqueID: 2644474343
+    locked: 0
+  - name: DestroyImage
+    uniqueID: 2425242235
+    locked: 0
+  - name: InnerUI
+    uniqueID: 2892767301
+    locked: 0
+  - name: UIBG
+    uniqueID: 4202601983
+    locked: 0
+  - name: UIParticle
+    uniqueID: 3023810119
+    locked: 0
+  - name: FaceOfUI
+    uniqueID: 658130003
     locked: 0
