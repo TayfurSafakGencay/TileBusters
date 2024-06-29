@@ -6,6 +6,8 @@
     AddItemToFirstEmptySlot,
     MoveToRight,
     CheckThreeMatching,
-    Click
+    Click,
+    TileCheck,
+    Timer
   }
 }

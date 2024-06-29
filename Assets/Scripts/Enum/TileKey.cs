@@ -5,6 +5,7 @@
     Empty,
     Blue,
     Green,
-    Purple
+    Purple,
+    Red,
   }
 }

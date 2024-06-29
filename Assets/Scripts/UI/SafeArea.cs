@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace BigfootSdk.SafeArea
+namespace UI
 {
     /// <summary>
     /// Safe area implementation for notched mobile devices. Usage:

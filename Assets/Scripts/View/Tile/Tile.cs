@@ -85,17 +85,19 @@ namespace View.Tile
       OnClick();
     }
 
-    protected virtual void OnClick()
+    protected void OnClick()
     {
       if (!_isClickable) return;
       if (TileFeatureVo.Lock) return;
+      
+      _isClickable = false;
+
+      GameManager.Instance.SoundManager.PlaySound(SoundKey.Click);
 
       _spriteRenderer.sortingLayerName = "CollectedTile";
       Glow.GetComponent<SortingGroup>().sortingLayerName = "CollectedTile";
       
-      _isClickable = false;
-      
-      Debugger.Debug(new Color(0.5f, 0.3f, 0.8f), DebugKey.Click, TileFeatureVo.Id.ToString());
+      Debugger.Log(new Color(0.5f, 0.3f, 0.8f), DebugKey.Click, TileFeatureVo.Id.ToString());
 
       Destroy(gameObject.GetComponent<BoxCollider2D>());
       Destroy(gameObject.GetComponent<Rigidbody2D>());

@@ -22,3 +22,5 @@ MonoBehaviour:
     TileKey: 2
   - Sprite: {fileID: 21300000, guid: f00e6b5227a418e4caf4277a5a268391, type: 3}
     TileKey: 3
+  - Sprite: {fileID: 21300000, guid: 73be31b43671a48419b4262ad1d3a869, type: 3}
+    TileKey: 4

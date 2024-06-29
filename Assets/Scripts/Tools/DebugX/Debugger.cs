@@ -4,10 +4,22 @@ namespace Tools.DebugX
 {
   public static class Debugger
   {
-    public static void Debug(Color color, DebugKey debugKey, string message)
+    public static void Log(Color color, DebugKey debugKey, string message)
     {
       string htmlColor = ColorUtility.ToHtmlStringRGB(color);
-      UnityEngine.Debug.Log($"<color=#{htmlColor}>{debugKey}</color>: " + message);
+      Debug.Log($"<color=#{htmlColor}>{debugKey}</color>: " + message);
+    }
+    
+    public static void LogWarning(Color color, DebugKey debugKey, string message)
+    {
+      string htmlColor = ColorUtility.ToHtmlStringRGB(color);
+      Debug.LogWarning($"<color=#{htmlColor}>{debugKey}</color>: " + message);
+    }
+    
+    public static void LogError(Color color, DebugKey debugKey, string message)
+    {
+      string htmlColor = ColorUtility.ToHtmlStringRGB(color);
+      Debug.LogError($"<color=#{htmlColor}>{debugKey}</color>: " + message);
     }
   }
 }
