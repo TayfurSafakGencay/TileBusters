@@ -13,6 +13,7 @@ namespace Manager
       PlayerPrefs.SetInt(PlayerPrefKey.Health.ToString(), 5);
       PlayerPrefs.SetInt(PlayerPrefKey.Star.ToString(), 0);
       PlayerPrefs.SetInt(PlayerPrefKey.Coin.ToString(), 0);
+      PlayerPrefs.SetInt(PlayerPrefKey.BattlePass.ToString(), 0);
     }
     public static void SaveInt(PlayerPrefKey key, int value)
     {

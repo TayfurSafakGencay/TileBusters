@@ -5,6 +5,7 @@
     Level,
     Health,
     Star,
-    Coin
+    Coin,
+    BattlePass
   }
 }

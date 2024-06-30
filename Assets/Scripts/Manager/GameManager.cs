@@ -29,6 +29,9 @@ namespace Manager
                 Instance = this;
             
             SaveManager.InitialValues();
+            
+            SaveManager.SaveInt(PlayerPrefKey.Star, 215);
+            SaveManager.SaveInt(PlayerPrefKey.BattlePass, 0);
         }
 
         public static Action GameStarted;
