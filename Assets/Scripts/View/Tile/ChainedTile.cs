@@ -33,6 +33,9 @@ namespace View.Tile
     {
       base.Start();
       
+      string type = _isGoldChain ? "Gold" : "Silver";
+      gameObject.name = TileFeatureVo.Key + " " + type + "ChainedTile";
+      
       WaitToOpenChain();
     }
 

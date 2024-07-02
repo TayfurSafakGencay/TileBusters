@@ -22,6 +22,9 @@ namespace View.Tile
     [SerializeField]
     private List<TileKey> _tiles;
 
+    [SerializeField]
+    private Canvas _textCanvas;
+
     private bool _lock;
 
     private readonly List<int> _upperLayerTiles = new();
@@ -50,10 +53,12 @@ namespace View.Tile
     
     private async void Start()
     {
+      gameObject.name = "Tile Creator";
+      
       GameManager.Instance.TileManager.TileRemoved += TileRemoved;
       
       Vector3 position = transform.position;
-      transform.position = new Vector3(position.x, position.y, 25 - _layer);
+      transform.position = new Vector3(position.x, position.y, 0);
       
       _countText.text = _tiles.Count.ToString();
       
@@ -64,7 +69,7 @@ namespace View.Tile
         
         tileScript.SetFeatures(_layer, _tiles[i]);
 
-        await Task.Delay(1);
+        await Task.Delay(10);
         _creatorTiles.Add(tileScript.TileFeatureVo.Id);
       }
       
@@ -131,7 +136,7 @@ namespace View.Tile
 
     private async void InitialLockCheck()
     {
-      await Task.Delay(100);
+      await Task.Delay(700);
 
       if (_lock) return;
       
@@ -182,6 +187,7 @@ namespace View.Tile
     private void OnValidate()
     {
       _spriteRenderer.sortingOrder = _layer;
+      _textCanvas.sortingOrder = _layer;
     }
   }
 }

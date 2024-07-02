@@ -28,6 +28,19 @@ namespace View
     private void Start()
     {
       _tileManager = GameManager.Instance.TileManager;
+
+      GameManager.GameStarted += GameStarted;
+    }
+
+    private void GameStarted()
+    {
+      _isGameEnded = false;
+
+      for (int i = 0; i < _slots.Count; i++)
+      {
+        Transform key = _slots.ElementAt(i).Key;
+        _slots[key] = new TileFeatureVo();
+      }
     }
 
     public async void FillSlot(TileFeatureVo tileFeatureVo)
@@ -167,7 +180,6 @@ namespace View
       {
         KeyValuePair<Transform, TileFeatureVo> item = _slots.ElementAt(i);
         
-        // TODO: Score
         item.Value.Tile.DestroyGameObject();
         _slots[item.Key] = new TileFeatureVo();
         

@@ -4,6 +4,7 @@ using DG.Tweening;
 using Enum;
 using Manager;
 using Tools.DebugX;
+using Tools.TileType;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Vo;
@@ -206,10 +207,21 @@ namespace View.Tile
       _layer = layer;
     }
 
+    [Space(50)]
+    [Header("Data For Validate")]
+    public TileType TileType;
+
     protected virtual void OnValidate()
     {
       GetComponent<SpriteRenderer>().sortingOrder = _layer;
       Glow.GetComponent<SortingGroup>().sortingOrder = _layer;
+
+      for (int i = 0; i < TileType.GetTiles().Count; i++)
+      {
+        if (TileType.GetTiles()[i].TileKey != _tileKey) continue;
+        GetComponent<SpriteRenderer>().sprite = TileType.GetTiles()[i].Sprite;
+        return;
+      }
     }
 #endif
 

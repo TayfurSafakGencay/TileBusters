@@ -13,6 +13,13 @@ namespace View.Tile
     [SerializeField]
     private SpriteRenderer _stick;
 
+    protected override void Start()
+    {
+      base.Start();
+      
+      gameObject.name = TileFeatureVo.Key + " StickyTile";
+    }
+
     protected override void OnMouseDown()
     {
       if (_siblingTile.TileFeatureVo.Lock || TileFeatureVo.Lock) return;
@@ -28,7 +35,7 @@ namespace View.Tile
     {
       _stick.DOFade(0, 0.2f);
 
-      await Task.Delay(500);
+      await Task.Delay(100);
       
       OnClick();
     }

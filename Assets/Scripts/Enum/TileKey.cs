@@ -7,5 +7,11 @@
     Green,
     Purple,
     Red,
+    Cream,
+    Brown,
+    Yellow,
+    Cyan,
+    Orange,
+    Pink
   }
 }

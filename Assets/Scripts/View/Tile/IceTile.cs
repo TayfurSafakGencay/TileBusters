@@ -23,6 +23,8 @@ namespace View.Tile
     protected override void Start()
     {
       base.Start();
+      
+      gameObject.name = TileFeatureVo.Key + " IceTile";
 
       transform.localPosition -= new Vector3(0, 0, -0.5f);
       
