@@ -21,8 +21,11 @@ namespace UI
     
     private async void OnEnable()
     {
-      await Task.Delay(100);
+      _winPanel.SetActive(false);
+      _losePanel.SetActive(false);
       
+      await Task.Delay(50);
+
       OpenPanel();
 
       (_success ? (Action)OnWin : OnLose)();
@@ -57,7 +60,7 @@ namespace UI
     {
       int level = GameManager.Level;
       _earnedCoin = Random.Range(10 + level, 20 + level);
-      _earnedStar = Random.Range(5 + level, 15 + level);
+      _earnedStar = Random.Range(75 + level * 15, 100 + level * 20);
 
       _earnedCoinsText.text = _earnedCoin.ToString();
       _earnedStarText.text = _earnedStar.ToString();
@@ -80,7 +83,6 @@ namespace UI
 
     public void OpenAD()
     {
-      // TODO: Safak - Show AD and x3 coins
       Debug.Log("Open AD");
     }
     #endregion
