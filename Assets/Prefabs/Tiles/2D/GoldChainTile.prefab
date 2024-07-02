@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1550147136415321387}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -63,6 +63,7 @@ MonoBehaviour:
   _layer: 0
   Glow: {fileID: 8036514832656786712}
   _destroySprite: {fileID: 8540089817390804926}
+  TileType: {fileID: 11400000, guid: e3a53ae0706c690438138b9881c6ca21, type: 2}
   _isGoldChain: 1
   _lockSpriteRenderer: {fileID: 5992767041025886014}
   _unlockImage: {fileID: 1522670155, guid: 7bb12e1a1363c514bb9ee72a9acafce2, type: 3}
@@ -179,7 +180,7 @@ SpriteRenderer:
   m_SortingLayerID: -1772823343
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1fb82d9783c752c45b2a08cb9ca490bd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aedb725fc2a139d4ba1384d06a0badd6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

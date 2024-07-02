@@ -10267,6 +10267,7 @@ MonoBehaviour:
   _layer: 0
   Glow: {fileID: 536446758662652675}
   _destroySprite: {fileID: 5951578833037818658}
+  TileType: {fileID: 11400000, guid: e3a53ae0706c690438138b9881c6ca21, type: 2}
   _siblingTile: {fileID: 196348315105699096}
   _stick: {fileID: 1170679281266562436}
 --- !u!61 &1049238210744829253
@@ -10382,7 +10383,7 @@ SpriteRenderer:
   m_SortingLayerID: -1772823343
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1fb82d9783c752c45b2a08cb9ca490bd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aedb725fc2a139d4ba1384d06a0badd6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10455,6 +10456,7 @@ MonoBehaviour:
   _layer: 0
   Glow: {fileID: 2497135713508425255}
   _destroySprite: {fileID: 2234995225794161733}
+  TileType: {fileID: 11400000, guid: e3a53ae0706c690438138b9881c6ca21, type: 2}
   _siblingTile: {fileID: 3384124520407286019}
   _stick: {fileID: 4332146069492983437}
 --- !u!61 &4655384597377159111
@@ -10570,7 +10572,7 @@ SpriteRenderer:
   m_SortingLayerID: -1772823343
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1fb82d9783c752c45b2a08cb9ca490bd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aedb725fc2a139d4ba1384d06a0badd6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
