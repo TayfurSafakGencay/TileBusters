@@ -6,6 +6,7 @@
     Health,
     Star,
     Coin,
-    BattlePass
+    BattlePass,
+    Skin
   }
 }
