@@ -10,10 +10,11 @@ namespace Manager
       if (PlayerPrefs.HasKey(PlayerPrefKey.Level.ToString())) return;
       
       PlayerPrefs.SetInt(PlayerPrefKey.Level.ToString(), 1);
-      PlayerPrefs.SetInt(PlayerPrefKey.Health.ToString(), 5);
+      PlayerPrefs.SetInt(PlayerPrefKey.Health.ToString(), 2);
       PlayerPrefs.SetInt(PlayerPrefKey.Star.ToString(), 0);
       PlayerPrefs.SetInt(PlayerPrefKey.Coin.ToString(), 0);
       PlayerPrefs.SetInt(PlayerPrefKey.BattlePass.ToString(), 0);
+      PlayerPrefs.SetInt(PlayerPrefKey.Skin.ToString(), 0);
     }
     public static void SaveInt(PlayerPrefKey key, int value)
     {

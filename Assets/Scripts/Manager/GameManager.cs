@@ -1,6 +1,7 @@
 using System;
 using Enum;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using View;
 
 namespace Manager
@@ -18,6 +19,8 @@ namespace Manager
 
         public ParticleManager ParticleManager;
 
+        public LevelManager LevelManager;
+
         [Header("Collector")]
         public BottomCollector BottomCollector;
 
@@ -29,9 +32,6 @@ namespace Manager
                 Instance = this;
             
             SaveManager.InitialValues();
-            
-            SaveManager.SaveInt(PlayerPrefKey.Star, 215);
-            SaveManager.SaveInt(PlayerPrefKey.BattlePass, 0);
         }
 
         public static Action GameStarted;
@@ -39,6 +39,8 @@ namespace Manager
         public static void StartGame()
         {
             Level = SaveManager.GetInt(PlayerPrefKey.Level);
+            
+            LevelManager.Instance.CallLevel(Level);
 
             GameStarted?.Invoke();
         }

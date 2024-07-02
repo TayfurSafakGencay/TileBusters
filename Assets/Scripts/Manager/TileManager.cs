@@ -10,7 +10,6 @@ using UnityEngine;
 using Vo;
 using Debug = UnityEngine.Debug;
 using Debugger = Tools.DebugX.Debugger;
-using Time = Enum.Time;
 
 namespace Manager
 {
@@ -20,7 +19,7 @@ namespace Manager
     
     private List<TileSpriteVo> _tilesSpriteVos;
 
-    private Dictionary<TileKey, Sprite> _tilesSprites = new();
+    private readonly Dictionary<TileKey, Sprite> _tilesSprites = new();
 
     private static int _lastId;
 
@@ -28,8 +27,17 @@ namespace Manager
     {
       Instance = this;
       
-      _tilesSpriteVos = Resources.Load<TileType>("TileTypes").Instance.GetTiles();
+      UpdateSkin(SaveManager.GetInt(PlayerPrefKey.Skin));
+    }
 
+    public void UpdateSkin(int skinIndex)
+    {
+      SkinKey skinKey = (SkinKey)skinIndex;
+      
+      _tilesSpriteVos = Resources.Load<TileType>(skinKey.ToString()).Instance.GetTiles();
+      
+      _tilesSprites.Clear();
+      
       for (int i = 0; i < _tilesSpriteVos.Count; i++)
       {
         TileSpriteVo tileSpriteVo = _tilesSpriteVos[i];
@@ -40,10 +48,13 @@ namespace Manager
     private void Start()
     {
       GameManager.GameStarted += CheckTiles;
+      GameManager.GameFinished += GameFinished;
     }
 
     private async void CheckTiles()
     {
+      _lastId = 0;
+      
       await Task.Delay(250);
       
       Stopwatch stopwatch = new();
@@ -126,6 +137,11 @@ namespace Manager
       _allTiles.Remove(id);
       
       TileRemoved.Invoke(id);
+    }
+
+    private void GameFinished(bool success)
+    {
+      _allTiles.Clear();
     }
 
     public Dictionary<int, TileFeatureVo> GetAllTiles()
